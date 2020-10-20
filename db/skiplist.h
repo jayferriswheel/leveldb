@@ -12,6 +12,7 @@
 // Reads require a guarantee that the SkipList will not be destroyed
 // while the read is in progress.  Apart from that, reads progress
 // without any internal locking or synchronization.
+// 线程安全的保证，写加锁
 //
 // Invariants:
 //
@@ -343,7 +344,7 @@ void SkipList<Key, Comparator>::Insert(const Key& key) {
   // Our data structure does not allow duplicate insertion
   assert(x == nullptr || !Equal(key, x->key));
 
-  int height = RandomHeight();
+  int height = RandomHeight();// 算法都是随机一个高度
   if (height > GetMaxHeight()) {
     for (int i = GetMaxHeight(); i < height; i++) {
       prev[i] = head_;

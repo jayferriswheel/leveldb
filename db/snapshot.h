@@ -29,7 +29,7 @@ class SnapshotImpl : public Snapshot {
   SnapshotImpl* prev_;
   SnapshotImpl* next_;
 
-  const SequenceNumber sequence_number_;
+  const SequenceNumber sequence_number_; // 序列号很重要
 
 #if !defined(NDEBUG)
   SnapshotList* list_ = nullptr;
@@ -44,6 +44,7 @@ class SnapshotList {
   }
 
   bool empty() const { return head_.next_ == &head_; }
+  // 取出最“老”的快照
   SnapshotImpl* oldest() const {
     assert(!empty());
     return head_.next_;
@@ -67,7 +68,7 @@ class SnapshotList {
     snapshot->prev_->next_ = snapshot;
     snapshot->next_->prev_ = snapshot;
     return snapshot;
-  }
+  } // 新生成一个快照，并插入链表中
 
   // Removes a SnapshotImpl from this list.
   //

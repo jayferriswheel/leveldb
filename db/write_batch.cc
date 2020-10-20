@@ -119,6 +119,7 @@ class MemTableInserter : public WriteBatch::Handler {
   MemTable* mem_;
 
   void Put(const Slice& key, const Slice& value) override {
+    // 最终调用的是MemTable.add
     mem_->Add(sequence_, kTypeValue, key, value);
     sequence_++;
   }

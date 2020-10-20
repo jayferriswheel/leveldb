@@ -95,7 +95,7 @@ class Version {
       int level,
       const InternalKey* begin,  // nullptr means before all keys
       const InternalKey* end,    // nullptr means after all keys
-      std::vector<FileMetaData*>* inputs);
+      std::vector<FileMetaData*>* inputs); // 多少个文件
 
   // Returns true iff some file in the specified level overlaps
   // some part of [*smallest_user_key,*largest_user_key].
@@ -184,7 +184,7 @@ class VersionSet {
   // Recover the last saved descriptor from persistent storage.
   Status Recover(bool* save_manifest);
 
-  // Return the current version.
+  // Return the current version. 只有一个当前version
   Version* current() const { return current_; }
 
   // Return the current manifest file number

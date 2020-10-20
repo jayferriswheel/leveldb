@@ -25,8 +25,10 @@ class BloomFilterPolicy : public FilterPolicy {
 
   const char* Name() const override { return "leveldb.BuiltinBloomFilter2"; }
 
+  // Bloom filter
   void CreateFilter(const Slice* keys, int n, std::string* dst) const override {
-    // Compute bloom filter size (in both bits and bytes)
+    // Compute bloom filter size (in both bits and bytes) 
+    // bloomfilter 需要多少bit
     size_t bits = n * bits_per_key_;
 
     // For small n, we can see a very high false positive rate.  Fix it
@@ -40,6 +42,7 @@ class BloomFilterPolicy : public FilterPolicy {
     dst->resize(init_size + bytes, 0);
     dst->push_back(static_cast<char>(k_));  // Remember # of probes in filter
     char* array = &(*dst)[init_size];
+    // 逐个将每个key 写入bloom fliter
     for (int i = 0; i < n; i++) {
       // Use double-hashing to generate a sequence of hash values.
       // See analysis in [Kirsch,Mitzenmacher 2006].

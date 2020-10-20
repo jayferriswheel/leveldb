@@ -60,6 +60,7 @@ class MemTable {
   // If memtable contains a deletion for key, store a NotFound() error
   // in *status and return true.
   // Else, return false.
+  // 查找
   bool Get(const LookupKey& key, std::string* value, Status* s);
 
  private:

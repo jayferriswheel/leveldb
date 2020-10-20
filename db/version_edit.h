@@ -22,8 +22,8 @@ struct FileMetaData {
   int allowed_seeks;  // Seeks allowed until compaction
   uint64_t number;
   uint64_t file_size;    // File size in bytes
-  InternalKey smallest;  // Smallest internal key served by table
-  InternalKey largest;   // Largest internal key served by table
+  InternalKey smallest;  // Smallest internal key served by table 最小值
+  InternalKey largest;   // Largest internal key served by table 最大值，这样构成了一个区间
 };
 
 class VersionEdit {
